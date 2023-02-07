@@ -32,6 +32,15 @@ let drawScore = function () {
 	contextCanvas.fillText("Счет: " + score, blockSize, blockSize);		// отображение текста
 };
 
+// Функция, которая отображает на «холсте» строку с текущим счетом игры
+let drawSpeed = function () {
+	contextCanvas.font = "20px Courier";		// размер и семейство шрифта
+	contextCanvas.fillStyle = "Red";			// черный цвет текста
+	contextCanvas.textAlign = "right";			// выравнивание по левому краю
+	contextCanvas.textBaseline = "bottom";			// опорная линия текста (от верха вниз)
+	contextCanvas.fillText("Максимальная скорость!", widthCanvas - blockSize, heightCanvas - blockSize);		// отображение текста
+};
+
 // Функция, вызываемая в конце игры, когда змейка врежется в стену (рамку) или в собственый хвост.
 let gameOver = function () {
 	gameLoop = 0;		// останавливаем игру, присвойив переменной с функцией любое другое значение
@@ -141,10 +150,16 @@ Snake.prototype.move = function () {
 		score++;				// увеличиваем счет игры
 		apple.move();		// перемещая яблоко в новую позицию (напишем далее)
 		// Увеличиваем скорость змейки
-		if (animationTime <= 40) {
-			animationTime = 40;
-		} else {
+		if (animationTime <= 30) {
+			animationTime = 30;
+		} else if (animationTime >= 130) {
 			animationTime = animationTime - 10;
+		} else if (animationTime < 130 && animationTime >= 100) {
+			animationTime = animationTime - 5;
+		} else if (animationTime < 100 && animationTime >= 50) {
+			animationTime = animationTime - 2;
+		} else {
+			animationTime = animationTime - 1;
 		}
 	} else {		// В противном случае (если змейка не съела яблоко) удаляем сегмент змеиного хвоста
 		this.segments.pop();
@@ -249,6 +264,9 @@ let animationTime = 200;
 let gameLoop = function () {
 	contextCanvas.clearRect(0, 0, widthCanvas, heightCanvas);
 	drawScore();
+	if (animationTime <= 30) {
+		drawSpeed();
+	}
 	snake.move();
 	snake.draw();
 	apple.draw();

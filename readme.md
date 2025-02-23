@@ -1,5 +1,5 @@
-Игра "Змейка"
+Game "Snake"
 
-Анимации с помощью Сanvas. Управление анимациями с клавиатуры.
+Animations with canvas. Controlling animations with the keyboard.
 
-Создано по материалам книги "JavaScript для детей", Глава 16, 17.
+Created based on the book "JavaScript for Kids", Chapter 16, 17.
